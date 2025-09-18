@@ -1,0 +1,15 @@
+
+1) Intermediary car rental company
+
+=> offic (#office_id, contact_no, address)
+
+=> owner (#ssn, full_name, banck_account_no, office_id(fk))
+
+=> car (car_id, model_name,brand,model_year,rent_amount,car_status,owner_id(fk) refere to (national_id))
+
+=> tenant (#ssn ,driving_licence, mobile_no)
+
+
+=> renting (#tenant_id(fk),#car_id(fk), start_date,duration,payment_method)
+
+

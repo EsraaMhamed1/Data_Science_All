@@ -1,0 +1,19 @@
+
+3) 	XYZ take-away Restaurants:
+
+=>branch(#branch_id, address,contact_no)
+
+=> staff(#staff_id ,full_name, age,city,region,role,joning_date,month_salary,branch_id(fk))
+
+=> manager(#staff_id(fk), branch_id(fk))
+
+=> customer(#customer_id,name,contact_num)
+
+=> menu_Item (#item_code,item_name, unit_price,item_category, branch_id(fk))
+
+=>order(#order_id,customer_id(fk),desired_address, total_bill,order_datetime)
+
+=> order_item (#order_id(fk),item_code(fk),quantity)
+
+=> delivery_boy(#ssn , full_name, contact_no)
+

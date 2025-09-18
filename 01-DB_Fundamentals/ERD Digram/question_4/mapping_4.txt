@@ -1,0 +1,14 @@
+4) International school database system:
+
+
+=> student(#serial_no,full_name,age,gender,BFD, c_certificate, school_email, division)
+
+=> medical_report(#repoet_id, weight,heigt,disease,student_serial_no(fk))
+
+=>sibling(#sibling_id, student_id(fk), discount_precent)
+
+=>  parent(#parent_id, name, relationship )
+
+=> student_parent (#student_serial_no(fk),#parent_id(fk))
+
+=> teacher(#teacher_id, name,subject,phone_num,email,monthly_salary)
