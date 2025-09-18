@@ -1,0 +1,129 @@
+
+1-Display the last name concatenated with the job id, separated by a comma and space and name the column [Employee and Title]  as alias
+
+>> Answer⬇
+select 
+last_name || ', ' || job_id as "employee and title"
+from employees;
+
+
+********************************
+2-Display the last name and salary for all employees whose salary is not in the range of $1500 and $7000.
+
+>> Answer⬇
+select last_name, salary 
+from employees 
+where salary <1500 or salary >7000;
+
+✅ also we can us not between ... and 
+=> where salary not between 1500 and 7000;
+
+**********************************
+3-Display the last name, salary and commission for all employees who earn commissions, Sort data in descending order of salary and commissions.
+
+>> Answer⬇
+slect 
+last_name, salary, commision 
+from employees 
+where commision is not null 
+orderd by 
+salary desc , commision desc;
+
+********************************
+4- Display the last name, job id and salary for all employees whose job id is SA_REP or PU_MAN and their salary is equal to $9500, $9000 or $8000 
+
+>> Answer⬇
+select 
+last_name, job_id, salary 
+from employees 
+where
+ job_idin('SA_REP' , 'PU_MAN) 
+and 
+ salary in( 9500, 9000 , 8000);
+
+********************************
+5-Display all information about employees whose last name begin with letter 's’
+
+>> Answer⬇
+select * 
+from employee 
+where 
+last_name like 's%';
+
+*******************************
+6-Display all employees whose first name contains letter before last ‘e’
+
+>> Answer⬇
+select * 
+from employees 
+where last_name like '%e_'
+
+
+********************************
+********************************
+#DMLS
+
+1-Insert new location with suitable data
+
+>> Answer⬇
+insert into locations (
+1114 ,
+'Emad Eldeen', 
+71721 ,
+Assiut,
+'Assuit Government',
+ 'EG'
+);
+
+
+*******************************
+2-Insert new department with suitable data for this location
+
+>> Answer⬇
+insert into departments (
+30 , 
+'custmer service',
+ 110 ,
+ 1114
+);
+
+
+*******************************
+3-Insert new employee with suitable data for this department
+
+>> Answer⬇
+insert into employees (
+1,
+'Esraa',
+'Mohamed',
+'esraaeltehawy@gmail.com',
+'01206787064',
+'2023-07-11',
+'Data analyst',
+15000,
+30
+); 
+
+
+****************************
+4-Delete the created location
+
+>> Answer⬇
+delete from employees 
+where department_id=30;
+
+delete from departments 
+where location_id = 1114;
+
+delete from locations 
+where location_id=1114;
+
+
+
+
+
+
+
+
+
+
