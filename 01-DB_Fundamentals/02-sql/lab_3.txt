@@ -1,0 +1,185 @@
+lab 3 
+
+
+
+
+-- 1- Display the department names and the names of the city  they are in.
+
+SELECT d.department_name, l.city
+FROM departments d
+JOIN locations l ON d.location_id = l.location_id;
+
+-- *********************************************************************** 
+-- *********************************************************************** 
+
+-- 2- Display the full data about all employees along with the name of the 
+-- managers (supervisors ) they report to.
+
+SELECT 
+  emps.employee_id,
+  emps.first_name,
+  emps.last_name,
+  emps.email,
+  emps.phone_number,
+  emps.hire_date,
+  emps.job_id,
+  emps.salary,
+  emps.commission_pct,
+  mgrs.first_name AS manager_first_name,
+  mgrs.last_name AS manager_last_name
+from employees emps, employees mgrs 
+where emps.manager_id = mgrs.employee_id;
+
+
+-- *************************************************************************
+-- 3- Display the department ID, department name, manager ID, and the name of the manager.
+
+SELECT 
+d.department_id ,
+d.department_name,
+d.manager_id ,
+e.first_name AS manager_name
+FROM   departments d
+JOIN employees e ON d.manager_id = e.employee_id ;
+
+
+-- ********************************************************
+-- ********************************************************
+
+-- 4- Display (Using Union Function)
+ -- a. The last name and the job id of the employees works in dept 30
+ -- b. The last name and the job id of the employees works in dept 60
+ 
+ select department_id ,last_name , job_id 
+ from employees 
+ where department_id = 30
+ Union
+ select department_id, last_name, job_id 
+ from employees 
+ where department_id = 60;
+
+-- **************************************************************************
+-- **************************************************************************
+
+--  5- Display the ID, name, and city of the departments in Roma or Seattle  city.
+
+select 
+d.department_id , 
+d.department_name, 
+l.city
+from departments d 
+join locations l on d.location_id = l.location_id
+where l.city =  'Seattle' or  l.city ='Roma' ;
+
+-- ************************************************************************
+-- ************************************************************************
+
+-- 6- Display the full data of the departments with names that start with the letter "a".
+
+select *
+from departments
+where department_name like 'a%';
+
+
+-- **************************************************************************
+-- **************************************************************************
+-- 7- Display all the employees in department 30 whose salary is between 7000 to 15000.
+
+select * 
+from employees
+where department_id =30 
+and salary between 7000 and 15000;
+
+-- ***************************************************************************
+-- ***************************************************************************
+--  8- Find the names of the employees who directly report to Steven King.
+
+select
+e.first_name as employee_first_name,
+m.first_name as manger_f_name,
+m.last_name as manger_l_name
+from employees e
+join employees m on e.manager_id = m.employee_id
+where m.first_name = 'Steven' and m.last_name = 'King';
+
+
+-- *******************************************************************************
+-- *******************************************************************************
+-- 9- For each department, list the department name and the total salary (for all employees) spent on that department.
+
+select 
+d.department_name,
+sum(e.salary) as total_salary
+from departments d 
+join employees e on d.department_id =e.department_id
+group by department_name;
+
+
+
+
+-- ***********************************************************************************
+-- ***********************************************************************************
+--  10- Retrieve the names of all employees and the names of the departments they are working in, sorted by the department name.
+
+select 
+e.first_name as employee_first_name,
+d.department_name
+from employees e
+join departments d on e.department_id=d.department_id
+order by d.department_name;
+
+-- *************************************************************************************
+-- *************************************************************************************
+-- 11- Display the data of the department which has the smallest employee ID over all employees' ID.
+
+select d.*
+from departments d
+join employees e on d.department_id = e.department_id
+where e.employee_id = (
+  select MIN(employee_id) from employees
+);
+
+-- ****************************************************************************************
+-- ****************************************************************************************
+-- 12- For each department, retrieve the department name and the maximum, minimum, and average salary of its employees.
+select 
+  d.department_name,
+  max(e.salary) as max_salary,
+  min(e.salary) as min_salary,
+  round(avg(e.salary), 2) as avg_salary
+from departments d
+join employees e on d.department_id = e.department_id
+group by  d.department_name;
+
+
+-- ****************************************************************************************
+-- ****************************************************************************************
+-- 13- For each department, if its average salary is less than the average salary of all employees, display its number, name, and number of its employees.
+
+select 
+  d.department_id,
+  d.department_name,
+  count(e.employee_id) as number_of_employees
+from departments d
+join employees e on d.department_id = e.department_id
+group by d.department_id, d.department_name
+having avg(e.salary) < (
+  select avg(salary) from employees
+);
+
+
+-- *******************************************************************
+-- *******************************************************************
+-- 14- Retrieve a list of employees and the departments they are working in, ordered by department and within each department, ordered alphabetically by last name, first name.
+
+select 
+  e.first_name,
+  e.last_name,
+  d.department_name
+from employees e
+join departments d on e.department_id = d.department_id
+order by 
+  d.department_name asc,
+  e.last_name asc,
+  e.first_name asc;
+
