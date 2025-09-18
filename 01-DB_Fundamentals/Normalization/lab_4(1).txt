@@ -1,0 +1,58 @@
+1) customer_RentalTable 
+
+0nf:
+Customers[#customer_no, customer_name, property_number, property_address, rent_start, rnet_finish, rnet, owner_number, owner_name]
+
+1nf:
+
+Customers[#customer_no, customer_name]
+customer_properties[#customer_no(fk),#property_number,property_address, rent_start, rnet_finish, rnet, owner_number, owner_name]
+
+2nf:(partial dependencey)
+
+Customers[#customer_no, customer_name]
+customer_properties[#customer_no(fk),#property_number(fk), rent_start, rnet_finish, rnet]
+properties[#property_number,#property_address,owner_number(fk)]
+owners[#owner_number, owner_name]
+
+
+3nf:(transitive)
+
+Customers[#customer_no, customer_name]
+customer_properties[#customer_no(fk),#property_number,rent_start, rnet_finish, rnet]
+propertIes[#property_number,#property_address,owner_number(fk)]
+owner[#owner_number, owner_name]
+
+###################################################################
+
+
+2) simple Report layout
+
+0nf:
+projects[#project_number, project_name, emp_number, emp_name, job_class,  chg_hour, hours_billed]
+
+
+1nf:(multi_value , composit, repeating)
+projects[#project_number, project_name]
+employees[#emp_number,emp_name,job_class,chg-hour]
+emp_projects[#project_number(fk), #emp_number(fk), hours_billed]
+
+
+2nf:
+projects[#project_number, project_name]
+employees[#emp_number,emp_name,job_class,chg_hour]
+emp_projects[#project_number(fk),#emp_number(fk),hours_billed]
+
+
+3nf:
+projects[#project_number, project_name]
+employees[#emp_number,emp_name,job_class(fk)]
+emp_projects[#project_number(fk),#emp_number(fk),hours_billed]
+job_class[#job_class,chg_hour]
+
+
+
+
+
+
+
